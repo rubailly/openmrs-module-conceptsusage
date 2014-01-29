@@ -44,7 +44,9 @@ public class AdminList extends AdministrationSectionExt {
 	 */
 	public Map<String, String> getLinks() {
 		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
-		map.put("/module/conceptsusage/manage.form", "conceptsusage.manage");
+		map.put("module/conceptsusage/show_ConceptList.form", "Concepts Usage Summary");
+		map.put("module/conceptsusage/show_unusedConcepts.form", "View Unused Concepts");
+		map.put("module/conceptsusage/show_usedConcepts.form", "View used Concepts");
 		return map;
 	}
 	

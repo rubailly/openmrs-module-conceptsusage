@@ -13,6 +13,8 @@
  */
 package org.openmrs.module.conceptsusage.api.impl;
 
+import java.util.List;
+
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,7 +26,7 @@ import org.openmrs.module.conceptsusage.api.db.ConceptsUsageDAO;
  */
 public class ConceptsUsageServiceImpl extends BaseOpenmrsService implements ConceptsUsageService {
 	
-	protected final Log log = LogFactory.getLog(this.getClass());
+protected final Log log = LogFactory.getLog(this.getClass());
 	
 	private ConceptsUsageDAO dao;
 	
@@ -41,4 +43,13 @@ public class ConceptsUsageServiceImpl extends BaseOpenmrsService implements Conc
     public ConceptsUsageDAO getDao() {
 	    return dao;
     }
+    
+    @Override
+	public List<Integer> getConceptsFromTables(String databaseName) {
+		return dao.getConceptsFromTables(databaseName);
+	}
+	@Override
+	public List<Integer> getConceptsFromAllObs() {
+		return dao.getConceptsFromAllObs();
+	}
 }

@@ -6,39 +6,43 @@
 	<id>${project.parent.artifactId}</id>
 	<name>${project.parent.name}</name>
 	<version>${project.parent.version}</version>
-	<package>${project.parent.groupId}.${project.parent.artifactId}</package>
+	<package>${project.parent.groupId}.${project.parent.artifactId}
+	</package>
 	<author>Bailly RURANGIRWA</author>
 	<description>
 		${project.parent.description}
 	</description>
-	<updateURL>https://dev.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf</updateURL>
+	<updateURL>https://dev.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf
+	</updateURL>
 	<require_version>${openMRSVersion}</require_version>
 	<!-- / Module Properties -->
 
-	
+
 	<!-- Required Modules -->
 	<require_modules>
-																											
+
 		<require_module version="2.0.5-SNAPSHOT">
 			org.openmrs.module.htmlformentry
 		</require_module>
-			
+
 	</require_modules>
 	<!-- / Required Modules -->
-	
+
 	<!-- Module Activator -->
-	<activator>${project.parent.groupId}.${project.parent.artifactId}.ConceptsUsageActivator</activator>
-	
-	
+	<activator>${project.parent.groupId}.${project.parent.artifactId}.ConceptsUsageActivator
+	</activator>
+
+
 	<!-- Adds link to admin page -->
 	<extension>
 		<point>org.openmrs.admin.list</point>
-		<class>${project.parent.groupId}.${project.parent.artifactId}.extension.html.AdminList</class>
+		<class>${project.parent.groupId}.${project.parent.artifactId}.extension.html.AdminList
+		</class>
 	</extension>
-	
+
 	<!-- Maps hibernate file's, if present -->
 	<mappingFiles>
-				
+
 		ConceptsUsage.hbm.xml
 				
 	</mappingFiles>
@@ -58,6 +62,13 @@
 		<file>messages_es.properties</file>
 	</messages>
 	<!-- /Internationalization -->
+	<globalProperty>
+		<property>conceptcleanup.databaseName</property>
+		<defaultValue></defaultValue>
+		<description>
+			The OpenMRS database name
+		</description>
+	</globalProperty>
 
 </module>
 

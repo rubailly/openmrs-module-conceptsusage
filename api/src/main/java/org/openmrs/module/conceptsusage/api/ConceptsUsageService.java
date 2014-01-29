@@ -13,6 +13,8 @@
  */
 package org.openmrs.module.conceptsusage.api;
 
+import java.util.List;
+
 import org.openmrs.api.OpenmrsService;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,9 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 public interface ConceptsUsageService extends OpenmrsService {
-     
-	/*
-	 * Add service methods here
-	 * 
-	 */
+    
+	 public List<Integer> getConceptsFromTables(String databaseName);
+	 public List<Integer> getConceptsFromAllObs();
+	
 }

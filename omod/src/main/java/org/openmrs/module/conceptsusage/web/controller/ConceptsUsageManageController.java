@@ -13,24 +13,56 @@
  */
 package org.openmrs.module.conceptsusage.web.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.api.context.Context;
+import org.openmrs.Concept;
+import org.openmrs.module.conceptsusage.util.ConceptsUsageUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * The main controller.
  */
 @Controller
 public class  ConceptsUsageManageController {
-	
+	/** Logger for this class and subclasses */
 	protected final Log log = LogFactory.getLog(getClass());
+	@RequestMapping("/module/conceptsusage/show_ConceptList")
+	public String showConceptListForm(ModelMap map,
+			HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		map.addAttribute("allConcepts", ConceptsUsageUtil.getAllConcepts());
+		map.addAttribute("formConcepts",  ConceptsUsageUtil.getConceptsInForms());
+		map.addAttribute("tableConcepts", ConceptsUsageUtil.getConceptsFromTables());
+		map.addAttribute("unusedConcepts", ConceptsUsageUtil.getUnusedConcepts());
+		return "/module/conceptsusage/conceptListForm";
+	}
+
+
+
+	@RequestMapping("/module/conceptsusage/show_unusedConcepts")
+	public String showUnusedConceptsForm(ModelMap map,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		map.addAttribute("unusedConcepts", ConceptsUsageUtil.getUnusedConcepts());
+		return "/module/conceptsusage/unusedConceptsListForm";
+	}
 	
-	@RequestMapping(value = "/module/conceptsusage/manage", method = RequestMethod.GET)
-	public void manage(ModelMap model) {
-		model.addAttribute("user", Context.getAuthenticatedUser());
+	@RequestMapping("/module/conceptsusage/show_usedConcepts")
+	public String showusedConceptsForm(ModelMap map,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<Concept> usedConcepts = ConceptsUsageUtil.getAllConcepts();
+		List<Concept> unusedConcepts = ConceptsUsageUtil.getUnusedConcepts();
+		for (Concept concept : unusedConcepts) {
+			usedConcepts.remove(concept);
+		}
+		map.addAttribute("usedConcepts", usedConcepts);
+		
+		return "/module/conceptsusage/usedConceptsListForm";
 	}
 }

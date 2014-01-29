@@ -13,6 +13,8 @@
  */
 package org.openmrs.module.conceptsusage.api.db;
 
+import java.util.List;
+
 import org.openmrs.module.conceptsusage.api.ConceptsUsageService;
 
 /**
@@ -20,7 +22,8 @@ import org.openmrs.module.conceptsusage.api.ConceptsUsageService;
  */
 public interface ConceptsUsageDAO {
 	
-	/*
-	 * Add DAO methods here
-	 */
+
+	public List<Integer> getConceptsFromTables(String databaseName);
+
+	public List<Integer> getConceptsFromAllObs();
 }

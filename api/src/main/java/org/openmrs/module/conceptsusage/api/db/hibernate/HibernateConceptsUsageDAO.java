@@ -13,8 +13,12 @@
  */
 package org.openmrs.module.conceptsusage.api.db.hibernate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.openmrs.module.conceptsusage.api.db.ConceptsUsageDAO;
 
@@ -24,19 +28,39 @@ import org.openmrs.module.conceptsusage.api.db.ConceptsUsageDAO;
 public class HibernateConceptsUsageDAO implements ConceptsUsageDAO {
 	protected final Log log = LogFactory.getLog(this.getClass());
 	
+	/**
+	 * Hibernate session factory
+	 */
 	private SessionFactory sessionFactory;
-	
-	/**
-     * @param sessionFactory the sessionFactory to set
-     */
-    public void setSessionFactory(SessionFactory sessionFactory) {
-	    this.sessionFactory = sessionFactory;
-    }
-    
-	/**
-     * @return the sessionFactory
-     */
-    public SessionFactory getSessionFactory() {
-	    return sessionFactory;
-    }
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
+	//We'll probably make a global property for the database name.
+	@Override
+	public List<Integer> getConceptsFromTables(String databaseName) {
+		String sql = "select TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME='concept_id' and TABLE_SCHEMA = '"+databaseName+"' and TABLE_NAME not like 'concept%' ";
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+		@SuppressWarnings("unchecked")
+		List<String> tableNames = query.list();
+		List<Integer> conceptIds = new ArrayList<Integer>();
+		for (String tableName : tableNames) {
+			String sql1 = "select distinct concept_id from "+tableName;
+			Query query1 = sessionFactory.getCurrentSession().createSQLQuery(sql1);
+			@SuppressWarnings("unchecked")
+			List<Integer> concepts = query1.list();
+			conceptIds.addAll(concepts);
+		}
+		return conceptIds;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Integer> getConceptsFromAllObs() {
+		String sql = "select distinct concept_id from obs";
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+		return query.list();
+	}
+
 }

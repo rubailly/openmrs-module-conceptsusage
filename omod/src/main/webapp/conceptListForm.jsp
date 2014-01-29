@@ -1,15 +1,15 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 <openmrs:htmlInclude
-	file="/moduleResources/conceptcleanup/dataTables/media/css/demo_page.css" />
+	file="/moduleResources/conceptsusage/dataTables/media/css/demo_page.css" />
 
 <openmrs:htmlInclude
-	file="/moduleResources/conceptcleanup/dataTables/media/css/demo_table.css" />
+	file="/moduleResources/conceptsusage/dataTables/media/css/demo_table.css" />
 
 <openmrs:htmlInclude
-	file="/moduleResources/conceptcleanup/dataTables/media/js/jquery.js" />
+	file="/moduleResources/conceptsusage/dataTables/media/js/jquery.js" />
 <openmrs:htmlInclude
-	file="/moduleResources/conceptcleanup/dataTables/media/js/jquery.dataTables.js" />
+	file="/moduleResources/conceptsusage/dataTables/media/js/jquery.dataTables.js" />
 
 <script>
 	var currentTab = 0;
